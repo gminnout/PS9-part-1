@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>D3 Transitions</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <div id="main">
+        <button id="start7">Transition</button>
+        <button id="reset7">Reset</button>
+    </div>
+    <script type="text/javascript">
+        // Width and height of the SVG object
+        let w = 350;
+        let h = 175;
+
+        //Make an SVG Container
+        var svgContainer = d3.select("div#main")
+            .append("svg")
+            .attr("width", 400)
+            .attr("height", 200)
+            .style("border-color", "black")
+            .style("border-style", "solid")
+            .style("border-width", "1px");
+
+        // Draw the Rectangle
+        var rectangle = svgContainer.append("rect")
+            .attr("x", 50)
+            .attr("y", 50)
+            .attr("width", 50)
+            .attr("height", 50);
+
+        d3.select("#start6").on("click", function () {
+            rectangle
+                .transition()
+                .attr("x", 250) // New Position
+                .ease(d3.easeElastic); // Use the Elastic Transition Ease
+        });
+        d3.select("#reset6").on("click", function () {
+            rectangle
+                .transition()
+                .attr("x", 50) // New Position
+                .ease(d3.easeElastic); // Use the Elastic Transition Ease
+        });
+
+        d3.select("#start7").on("click", function () {
+            rectangle
+                .transition()
+                .attr("x", 250)
+                .attr("width", 100)
+                .attr("height", 100)
+                .attr("opacity", 0.5)
+                .attr("fill", "red")
+                .delay(500)
+                .duration(2500)
+                .ease(d3.easeBounce)
+                .on("end", function () { // on end of transition...
+                    d3.select(this)
+                        .transition() // second transition
+                        .attr("x", 150) // second x
+                        .attr("width", 75) // second width
+                        .attr("height", 75) // second height 
+                        .attr("opacity", 0.75) // second opacity 
+                        .attr("fill", "blue") // second color 
+                        .delay(500) // second delay 
+                        .duration(2500) // second time 
+                        .ease(d3.easeBounce); // second ease
+                });
+        });
+        d3.select("#reset7").on("click", function () {
+            rectangle
+                .transition()
+                .attr("x", 50)
+                .attr("y", 50); // New Position
+        });
+
+    </script>
+</body>
+
+</html>
